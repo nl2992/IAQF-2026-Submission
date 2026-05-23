@@ -27,6 +27,48 @@ The official IAQF-hosted winning paper and winners announcement are stored local
 4. When did arbitrage become economically infeasible after transaction costs, latency, and capital haircuts?
 5. What do these results imply for stablecoin settlement adoption and market-structure policy?
 
+## Paper Narrative
+
+The paper treats the March 2023 USDC de-peg as a natural experiment in **unit-of-account risk**. Crypto spot markets often quote and settle in stablecoins that are supposed to represent one dollar. When that representation is credible, BTC/USD, BTC/USDT, and BTC/USDC markets should stay tightly linked by arbitrage. When redemption credibility is questioned, the quote currency itself becomes risky, and the same BTC exposure can trade at different effective dollar prices across quote books.
+
+The central argument is therefore not just that USDC fell below par. It is that a stablecoin confidence shock propagates through three connected channels:
+
+1. **Price formation:** Stablecoin discounts mechanically enter BTC/stablecoin quotes and open law-of-one-price wedges against BTC/USD.
+2. **Market structure:** Cross-venue and cross-quote segmentation makes the residual wedge persist even after adjusting for the stablecoin FX leg.
+3. **Liquidity and arbitrage:** The same stress window brings wider spreads, higher price impact, thinner effective depth, and slower convergence, so dislocations are hardest to trade precisely when they are largest.
+
+The regulatory overlay follows from this mechanism. A GENIUS-style stablecoin framework and broader payment-rail adoption matter because they target redemption credibility and reserve transparency. In the paper's framework, better credibility should reduce left-tail stablecoin discounts and shorten normalization times, but it may not fully eliminate residual wedges caused by venue segmentation, transfer frictions, and jurisdictional liquidity fragmentation.
+
+## Methodology
+
+### Data Design
+
+- **Sample window:** March 1-21, 2023 UTC at one-minute frequency, covering 30,240 observations around the USDC de-peg.
+- **Core price panel:** Binance.US and Coinbase OHLCV data for BTC quoted in USD and stablecoins, plus Binance.US stablecoin parity series such as USDC/USD and USDT/USD.
+- **Microstructure data:** Binance public aggTrades and one-second kline data aggregated to one-minute liquidity measures.
+- **Cross-exchange validation:** Kraken and Bybit tick data aggregated to one minute to test whether the observed stress was specific to Binance.US or visible across venues.
+- **Regimes:** Fixed event-study windows: pre-crisis (Mar 1-9), crisis (Mar 10-12), recovery (Mar 13-15), and post-crisis (Mar 16-21), applied consistently across datasets.
+
+### Empirical Framework
+
+The analysis builds a log law-of-one-price wedge for BTC across quote currencies:
+
+```text
+b_t = ln(P_t BTC/stablecoin) - ln(P_t BTC/USD) - ln(S_t stablecoin/USD)
+```
+
+This separates the observed cross-quote deviation into:
+
+- a **stablecoin FX leg**, measuring the stablecoin's own deviation from one dollar;
+- a **residual market-structure leg**, measuring quote-book and venue dispersion after adjusting for the stablecoin discount.
+
+The paper then layers on four tests:
+
+- **Stationarity and cointegration:** ADF and Engle-Granger tests verify that the constructed wedge is mean-reverting in the long run rather than a drifting spread.
+- **OU mean reversion:** Regime-specific AR(1) estimates are mapped into Ornstein-Uhlenbeck speeds and half-lives, translating persistence into minutes or hours.
+- **Arbitrage implementability:** Observed basis deviations are compared against round-trip transaction-cost hurdles; hit rates measure how often deviations clear realistic no-trade bands.
+- **Liquidity fragmentation:** Kyle's lambda, Amihud illiquidity, range-based spread proxies, volume-based depth proxies, and realized volatility are compared across quote currencies and regimes.
+
 ## Key Findings
 
 - **Law-of-one-price dislocation:** BTC/USDC versus BTC/USD deviations reached more than **1,200 bps** during the crisis, compared with a pre-crisis median near zero.
@@ -35,6 +77,10 @@ The official IAQF-hosted winning paper and winners announcement are stored local
 - **Liquidity fragmentation:** BTC/USDC price impact was materially higher than BTC/USDT, and quoted spreads widened across both stablecoin- and dollar-quoted markets.
 - **Arbitrage impairment:** Estimated OU half-life increased from **3.2 minutes** before the crisis to **602.7 minutes** during the crisis, showing that deviations persisted when balance-sheet and execution constraints tightened.
 - **Cross-exchange contagion:** Bybit and Kraken evidence shows the stress was not confined to Binance.US; offshore and cross-venue markets also reflected the de-peg.
+
+## Interpretation
+
+The results imply that stablecoin stress should be treated as both **basis risk** and **liquidity risk**. In normal periods, stablecoin-quoted BTC prices behave nearly dollar-equivalent. During stress, the stablecoin discount, cross-venue segmentation, and deteriorating execution conditions reinforce each other. That is why the paper emphasizes tail behavior and normalization speed, not just average parity: a three-minute half-life is a transient pricing disturbance, while a ten-hour half-life becomes an inventory, funding, and drawdown problem.
 
 ## Main Figures
 
