@@ -186,6 +186,40 @@ Using a 30-day moving average, the addendum compares implied USD/USDT and USD/US
 
 The results imply that stablecoin stress should be treated as both **basis risk** and **liquidity risk**. In normal periods, stablecoin-quoted BTC prices behave nearly dollar-equivalent. During stress, the stablecoin discount, cross-venue segmentation, and deteriorating execution conditions reinforce each other. That is why the paper emphasizes tail behavior and normalization speed, not just average parity: a three-minute half-life is a transient pricing disturbance, while a ten-hour half-life becomes an inventory, funding, and drawdown problem.
 
+## Data Sources and Method References
+
+The paper relies on public market-data APIs and established empirical finance methods. The most important sources are listed here so the repository is self-contained and the empirical provenance is clear.
+
+### Market Data Sources
+
+| Source | Use in analysis |
+|---|---|
+| [Binance.US API documentation](https://docs.binance.us/) | Binance.US 1-minute OHLCV for BTC/USD, BTC/USDT, BTC/USDC, BTC/BUSD, and stablecoin parity pairs such as USDC/USD and USDT/USD. |
+| [Binance Spot API documentation](https://developers.binance.com/docs/binance-spot-api-docs/rest-api) and [Binance public data archive](https://data.binance.vision/) | Public aggTrades and one-second/tick-derived Binance microstructure inputs used for price-impact, illiquidity, spread, depth, and volume measures. |
+| [Coinbase Exchange API documentation](https://docs.cdp.coinbase.com/exchange/docs/welcome) | Coinbase BTC/USD, BTC/USDC, and BTC/USDT candle data used in the harmonized cross-quote price panel. |
+| [Kraken REST API documentation](https://docs.kraken.com/rest/) | Kraken BTC/USD, USDC/USD, USDT/USD, and USDC/USDT data used to validate whether stablecoin discounts were synchronized across venues. |
+| [Bybit public spot trade archive](https://public.bybit.com/spot/) | Bybit BTC/USDT and BTC/USDC spot trade data used for offshore cross-exchange robustness checks. |
+
+### Methodology References
+
+| Reference | Role in paper |
+|---|---|
+| Uhlenbeck and Ornstein, “[On the theory of the Brownian motion](https://doi.org/10.1103/PhysRev.36.823),” *Physical Review*, 1930 | Continuous-time OU mean-reversion model used to translate parity-wedge persistence into half-lives. |
+| Engle and Granger, “Co-integration and error correction,” *Econometrica*, 1987 | Cointegration framework used to test whether BTC cross-quote prices share a long-run equilibrium. |
+| Dickey and Fuller, “Distribution of the estimators for autoregressive time series with a unit root,” *Journal of the American Statistical Association*, 1979 | ADF stationarity tests for price levels, stablecoin deviations, and constructed basis wedges. |
+| Chan, Karolyi, Longstaff, and Sanders, “An empirical comparison of alternative models of the short-term interest rate,” *Journal of Finance*, 1991 | Background for comparing mean-reversion specifications and interpreting OU-style persistence. |
+| Makarov and Schoar, “[Price discovery in cryptocurrency markets](https://doi.org/10.1257/pandp.20191020),” *AEA Papers and Proceedings*, 2019 | Crypto market segmentation and limits-to-arbitrage motivation. |
+| Kyle, “Continuous auctions and insider trading,” *Econometrica*, 1985 | Kyle's lambda price-impact measure. |
+| Amihud, “Illiquidity and stock returns,” *Journal of Financial Markets*, 2002 | Amihud illiquidity measure. |
+
+### Policy and Market-Structure Context
+
+| Source | Use in analysis |
+|---|---|
+| Federal Reserve Board stablecoin risk materials, including “[Primary and Secondary Markets for Stablecoins](https://www.federalreserve.gov/econres/notes/feds-notes/primary-and-secondary-markets-for-stablecoins-20240223.html)” | Stablecoin redemption, reserve, and secondary-market stress context. |
+| U.S. House Committee on Financial Services, section-by-section summary of the GENIUS Act, as cited in the paper | Policy framework for payment stablecoin reserve backing, redemption credibility, and public reporting. |
+| Visa, “[Visa expands USDC settlement capabilities](https://usa.visa.com/about-visa/newsroom/press-releases.html)” | Motivation for why stablecoin settlement infrastructure matters for market quality and operational risk. |
+
 ## Figure Guide
 
 ### Figure 1: Price and LOP Overview
