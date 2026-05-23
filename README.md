@@ -69,6 +69,31 @@ The paper then layers on four tests:
 - **Arbitrage implementability:** Observed basis deviations are compared against round-trip transaction-cost hurdles; hit rates measure how often deviations clear realistic no-trade bands.
 - **Liquidity fragmentation:** Kyle's lambda, Amihud illiquidity, range-based spread proxies, volume-based depth proxies, and realized volatility are compared across quote currencies and regimes.
 
+### OU Mean-Reversion Model
+
+The OU analysis asks how quickly a cross-quote dislocation closes after it opens. The paper first estimates a regime-specific AR(1) model for the residual basis wedge:
+
+```text
+b_{t+1} = alpha + phi b_t + epsilon_{t+1}
+```
+
+where `b_t` is the log parity deviation after adjusting for the stablecoin/USD rate. The fitted `phi` measures persistence. A lower `phi` means deviations decay quickly; a `phi` close to one means the wedge behaves almost like a random walk over the sampled horizon.
+
+To express this persistence in economic time, the discrete AR(1) estimate is mapped into the continuous-time Ornstein-Uhlenbeck process:
+
+```text
+db_t = kappa (mu - b_t) dt + sigma dW_t
+```
+
+with the conversion:
+
+```text
+kappa = -ln(phi) / Delta t
+half-life = ln(2) / kappa
+```
+
+Because the data are sampled at one-minute frequency, `Delta t` is one minute. The half-life is therefore directly interpretable as the expected number of minutes for a shock to decay halfway back toward its regime mean. In the paper, the pre-crisis estimate implies a half-life of **3.2 minutes**, while the crisis estimate implies **602.7 minutes**, or roughly **10 hours**. This is the core arbitrage-capacity result: the wedge does not merely get larger during the de-peg; it also becomes much slower to normalize.
+
 ## Key Findings
 
 - **Law-of-one-price dislocation:** BTC/USDC versus BTC/USD deviations reached more than **1,200 bps** during the crisis, compared with a pre-crisis median near zero.
@@ -82,37 +107,49 @@ The paper then layers on four tests:
 
 The results imply that stablecoin stress should be treated as both **basis risk** and **liquidity risk**. In normal periods, stablecoin-quoted BTC prices behave nearly dollar-equivalent. During stress, the stablecoin discount, cross-venue segmentation, and deteriorating execution conditions reinforce each other. That is why the paper emphasizes tail behavior and normalization speed, not just average parity: a three-minute half-life is a transient pricing disturbance, while a ten-hour half-life becomes an inventory, funding, and drawdown problem.
 
-## Main Figures
-
-The README uses full-width figures so the plots are readable in GitHub's renderer. Additional appendix figures are listed below.
+## Figure Guide
 
 ### Figure 1: Price and LOP Overview
 
 <img src="figures/master/master_fig1_price_lop_overview.png" alt="BTC price, stablecoin FX rates, and LOP deviations during the March 2023 USDC de-peg" width="100%">
 
+Figure 1 establishes the core law-of-one-price fact. BTC prices quoted in USD, USDT, and USDC are tightly aligned before the event, but the adjusted parity wedge expands sharply during the USDC de-peg. The figure makes the unit-of-account channel visible: when USDC trades below one dollar, BTC/USDC can diverge from BTC/USD even if the underlying BTC exposure is the same.
+
 ### Figure 2: Stablecoin De-Peg Dynamics
 
 <img src="figures/master/master_fig3_stablecoin_depeg.png" alt="USDC/USD and stablecoin FX deviations during the crisis window" width="100%">
+
+Figure 2 separates the stablecoin shock from the BTC price series. USDC/USD develops a pronounced left-tail discount during the crisis while USDT remains comparatively stable. The decomposition panels show that the observed BTC cross-quote wedge contains both a stablecoin FX component and a residual market-segmentation component.
 
 ### Figure 3: Crisis Deep Dive
 
 <img src="figures/master/master_fig9_crisis_deep_dive.png" alt="Crisis-window BTC/USDC price, LOP deviation, implied liquidity, and order-flow imbalance" width="100%">
 
+Figure 3 zooms into the March 10-13 stress window. It shows that the dislocation is not just a one-minute spike: the LOP wedge, implied liquidity stress, and order-flow imbalance all move together through the event. This supports the paper's interpretation that de-peg stress interacts with execution conditions and market depth.
+
 ### Figure 4: Quote-Currency Price Impact
 
 <img src="figures/master/master_fig6_kyle_lambda.png" alt="Kyle lambda estimates by quote currency and regime" width="100%">
+
+Figure 4 reports Kyle's lambda, the price-impact measure used to compare quote-currency liquidity. BTC/USDC is substantially more price-impacting than BTC/USDT during the available stress regimes. In practical terms, the same amount of signed trading pressure moves the USDC-quoted BTC book more, which is evidence of liquidity fragmentation across quote currencies.
 
 ### Figure 5: Regression Evidence
 
 <img src="figures/master/master_fig11_regression_coefs.png" alt="Regression coefficient estimates for LOP drivers" width="100%">
 
+Figure 5 summarizes the regression evidence on LOP drivers. The crisis, recovery, and post-crisis regime indicators remain economically large after controlling for liquidity and volatility measures, which supports the event-time interpretation: the stablecoin stress regime itself is central to the widening of the parity wedge.
+
 ### Figure 6: Spread, Depth, and Volatility
 
 <img src="figures/lop/fig_x_spread_depth_vol.png" alt="Spread, depth, and realized volatility across BTC quote currencies" width="100%">
 
+Figure 6 connects the pricing dislocation to trading conditions. Spread proxies widen during the stress window, realized volatility rises, and depth/volume conditions become more uneven. These patterns explain why arbitrage becomes less reliable when the quoted wedge looks most attractive.
+
 ### Figure 7: GENIUS Act Sensitivity
 
 <img src="figures/lop/fig_r1_genius_sensitivity.png" alt="Sensitivity table and expected holding-time comparisons under stablecoin adoption assumptions" width="100%">
+
+Figure 7 translates the OU framework into policy and trading implications. It varies the assumed half-life of dislocations and reports how faster or slower normalization affects expected holding time, hurdle exceedance, and tail risk. The economic point is that reserve credibility and redemption confidence matter because they can shorten the duration of dislocations, not only reduce their average size.
 
 ## Appendix Figure Index
 
