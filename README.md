@@ -10,10 +10,12 @@ This repository contains the final paper, IAQF winners notice, empirical noteboo
 
 ## Submission Documents
 
+The official IAQF-hosted winning paper and winners announcement are stored locally in `docs/submission/` so the repository remains self-contained even if signed CDN links expire.
+
 | Document | Path |
 |---|---|
-| Final paper | [`docs/submission/Columbia_Bayes_on_the_River.pdf`](docs/submission/Columbia_Bayes_on_the_River.pdf) |
-| IAQF winners announcement | [`docs/submission/IAQF_2026_winners_notice.pdf`](docs/submission/IAQF_2026_winners_notice.pdf) |
+| Official winning paper | [`docs/submission/Columbia_Bayes_on_the_River.pdf`](docs/submission/Columbia_Bayes_on_the_River.pdf) |
+| Official IAQF winners announcement | [`docs/submission/IAQF_2026_winners_notice.pdf`](docs/submission/IAQF_2026_winners_notice.pdf) |
 | Technical addendum | [`IAQF 2026 Paper (CIP) - Addendum.pdf`](IAQF%202026%20Paper%20%28CIP%29%20-%20Addendum.pdf) |
 | Competition prompt | [`docs/IAQFStudentCompetition2026.pdf`](docs/IAQFStudentCompetition2026.pdf) |
 
