@@ -147,6 +147,31 @@ $$
 
 Together, these measures connect the pricing wedge to execution quality: during the de-peg, the dislocation widens while price impact and spread conditions also deteriorate.
 
+### Addendum: Synthetic Stablecoin Cross-Currency Basis
+
+The addendum extends the paper by connecting stablecoin premia/discounts to the traditional **cross-currency basis** concept. In covered interest parity, spot and forward exchange rates should satisfy:
+
+$$
+1 + R_b
+= \frac{S}{F}(1 + R_f)
+$$
+
+In practice, funding pressure and balance-sheet frictions create a basis wedge \(\beta\):
+
+$$
+1 + R_b
+= \frac{S}{F}(1 + R_f + \beta)
+$$
+
+The addendum applies this intuition to crypto markets, where liquid deliverable forwards are limited but perpetual swaps provide a forward-like funding signal. A synthetic USD/stablecoin forward premium can be formed by pairing BTC/stablecoin perpetual pricing with BTC/USD perpetual pricing and comparing the implied forward-like rate to spot:
+
+$$
+\mathrm{Basis}_t
+= \frac{F_t}{S_t} - 1
+$$
+
+Using a 30-day moving average, the addendum compares implied USD/USDT and USD/USDC basis dynamics. The interpretation is that positive basis reflects relatively tighter USD funding or a lower stablecoin convenience yield, while negative basis reflects relatively tighter stablecoin funding or a higher stablecoin convenience yield. The addendum finds that USDT and USDC basis behavior diverges across regimes: USDC appears more sought after during stress periods, while USDT tends to dominate during broad crypto rallies. It also notes that the USDT-USDC basis differential has recently converged, consistent with the possibility that stablecoin regulation and market maturation are making the two stablecoins behave more similarly.
+
 ## Key Findings
 
 - **Law-of-one-price dislocation:** BTC/USDC versus BTC/USD deviations reached more than **1,200 bps** during the crisis, compared with a pre-crisis median near zero.
@@ -155,6 +180,7 @@ Together, these measures connect the pricing wedge to execution quality: during 
 - **Liquidity fragmentation:** BTC/USDC price impact was materially higher than BTC/USDT, and quoted spreads widened across both stablecoin- and dollar-quoted markets.
 - **Arbitrage impairment:** Estimated OU half-life increased from **3.2 minutes** before the crisis to **602.7 minutes** during the crisis, showing that deviations persisted when balance-sheet and execution constraints tightened.
 - **Cross-exchange contagion:** Bybit and Kraken evidence shows the stress was not confined to Binance.US; offshore and cross-venue markets also reflected the de-peg.
+- **Addendum basis evidence:** A synthetic stablecoin cross-currency-basis exercise using perpetual-swap pricing shows that USDT and USDC funding/convenience-yield dynamics differ by regime, with the basis differential widening in stress and narrowing as stablecoin markets mature.
 
 ## Interpretation
 
