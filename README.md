@@ -53,15 +53,15 @@ The regulatory overlay follows from this mechanism. A GENIUS-style stablecoin fr
 
 The analysis builds a log law-of-one-price wedge for BTC across quote currencies:
 
-$$
+```math
 b_t^{(q)}
 = \ln P_t^{\mathrm{BTC}/q}
 - \ln P_t^{\mathrm{BTC}/\mathrm{USD}}
 - \ln S_t^{q/\mathrm{USD}},
 \qquad q \in \{\mathrm{USDT}, \mathrm{USDC}\}
-$$
+```
 
-Under frictionless parity and a dollar-equivalent quote currency, \(b_t^{(q)} = 0\). A positive or negative wedge indicates that BTC quoted in stablecoin \(q\), after converting the quote currency back into dollars, is expensive or cheap relative to BTC/USD.
+Under frictionless parity and a dollar-equivalent quote currency, $b_t^{(q)} = 0$. A positive or negative wedge indicates that BTC quoted in stablecoin $q$, after converting the quote currency back into dollars, is expensive or cheap relative to BTC/USD.
 
 This separates the observed cross-quote deviation into:
 
@@ -77,73 +77,73 @@ The paper then layers on four tests:
 
 For arbitrage implementability, a deviation is treated as actionable only when it clears the relevant round-trip cost hurdle:
 
-$$
+```math
 |b_t| > c_{\mathrm{roundtrip}}
-$$
+```
 
-where \(c_{\mathrm{roundtrip}}\) includes exchange fees, estimated slippage, and other execution frictions for the scenario being evaluated.
+where $c_{\mathrm{roundtrip}}$ includes exchange fees, estimated slippage, and other execution frictions for the scenario being evaluated.
 
 ### OU Mean-Reversion Model
 
 The OU analysis asks how quickly a cross-quote dislocation closes after it opens. The paper first estimates a regime-specific AR(1) model for the residual basis wedge:
 
-$$
+```math
 b_{t+1} = \alpha + \phi b_t + \varepsilon_{t+1},
 \qquad
 \varepsilon_{t+1} \stackrel{i.i.d.}{\sim} (0,\sigma_\varepsilon^2)
-$$
+```
 
-where \(b_t\) is the log parity deviation after adjusting for the stablecoin/USD rate. The fitted \(\phi\) measures persistence. A lower \(\phi\) means deviations decay quickly; a \(\phi\) close to one means the wedge behaves almost like a random walk over the sampled horizon.
+where $b_t$ is the log parity deviation after adjusting for the stablecoin/USD rate. The fitted $\phi$ measures persistence. A lower $\phi$ means deviations decay quickly; a $\phi$ close to one means the wedge behaves almost like a random walk over the sampled horizon.
 
 To express this persistence in economic time, the discrete AR(1) estimate is mapped into the continuous-time Ornstein-Uhlenbeck process:
 
-$$
+```math
 db_t = \kappa(\mu - b_t)\,dt + \sigma\,dW_t
-$$
+```
 
 with the conversion:
 
-$$
+```math
 \kappa = -\frac{\ln(\phi)}{\Delta t},
 \qquad
 t_{1/2} = \frac{\ln(2)}{\kappa}
-$$
+```
 
-Because the data are sampled at one-minute frequency, \(\Delta t = 1\) minute. The half-life \(t_{1/2}\) is therefore directly interpretable as the expected number of minutes for a shock to decay halfway back toward its regime mean. In the paper, the pre-crisis estimate implies a half-life of **3.2 minutes**, while the crisis estimate implies **602.7 minutes**, or roughly **10 hours**. This is the core arbitrage-capacity result: the wedge does not merely get larger during the de-peg; it also becomes much slower to normalize.
+Because the data are sampled at one-minute frequency, $\Delta t = 1$ minute. The half-life $t_{1/2}$ is therefore directly interpretable as the expected number of minutes for a shock to decay halfway back toward its regime mean. In the paper, the pre-crisis estimate implies a half-life of **3.2 minutes**, while the crisis estimate implies **602.7 minutes**, or roughly **10 hours**. This is the core arbitrage-capacity result: the wedge does not merely get larger during the de-peg; it also becomes much slower to normalize.
 
 ### Liquidity Metrics
 
 The microstructure section compares market quality across quote currencies using one-minute aggregates. Kyle's lambda measures price impact per unit of signed order flow:
 
-$$
+```math
 \Delta p_t = \ln P_t^{\mathrm{close}} - \ln P_t^{\mathrm{open}},
 \qquad
 q_t = \sum_{i \in t} s_i v_i
-$$
+```
 
-$$
+```math
 \lambda_t = \frac{|\Delta p_t|}{|q_t| + \epsilon}
-$$
+```
 
-where \(s_i \in \{-1,+1\}\) signs each trade and \(v_i\) is trade size. A larger \(\lambda_t\) means prices move more for a given amount of net buying or selling pressure.
+where $s_i \in \{-1,+1\}$ signs each trade and $v_i$ is trade size. A larger $\lambda_t$ means prices move more for a given amount of net buying or selling pressure.
 
 Amihud illiquidity measures absolute return per unit of trading volume:
 
-$$
+```math
 \mathrm{ILLIQ}_t = \frac{|r_t|}{\mathrm{Volume}_t}
-$$
+```
 
 The spread and depth proxies are:
 
-$$
+```math
 \mathrm{SpreadProxy}_t
 = \frac{\mathrm{High}_t - \mathrm{Low}_t}{\mathrm{Close}_t} \times 10{,}000
-$$
+```
 
-$$
+```math
 \mathrm{DepthProxy}_t
 = \frac{\mathrm{Volume}_t}{\mathrm{SpreadProxy}_t}
-$$
+```
 
 Together, these measures connect the pricing wedge to execution quality: during the de-peg, the dislocation widens while price impact and spread conditions also deteriorate.
 
@@ -151,24 +151,24 @@ Together, these measures connect the pricing wedge to execution quality: during 
 
 The addendum extends the paper by connecting stablecoin premia/discounts to the traditional **cross-currency basis** concept. In covered interest parity, spot and forward exchange rates should satisfy:
 
-$$
+```math
 1 + R_b
 = \frac{S}{F}(1 + R_f)
-$$
+```
 
-In practice, funding pressure and balance-sheet frictions create a basis wedge \(\beta\):
+In practice, funding pressure and balance-sheet frictions create a basis wedge $\beta$:
 
-$$
+```math
 1 + R_b
 = \frac{S}{F}(1 + R_f + \beta)
-$$
+```
 
 The addendum applies this intuition to crypto markets, where liquid deliverable forwards are limited but perpetual swaps provide a forward-like funding signal. A synthetic USD/stablecoin forward premium can be formed by pairing BTC/stablecoin perpetual pricing with BTC/USD perpetual pricing and comparing the implied forward-like rate to spot:
 
-$$
+```math
 \mathrm{Basis}_t
 = \frac{F_t}{S_t} - 1
-$$
+```
 
 Using a 30-day moving average, the addendum compares implied USD/USDT and USD/USDC basis dynamics. The interpretation is that positive basis reflects relatively tighter USD funding or a lower stablecoin convenience yield, while negative basis reflects relatively tighter stablecoin funding or a higher stablecoin convenience yield. The addendum finds that USDT and USDC basis behavior diverges across regimes: USDC appears more sought after during stress periods, while USDT tends to dominate during broad crypto rallies. It also notes that the USDT-USDC basis differential has recently converged, consistent with the possibility that stablecoin regulation and market maturation are making the two stablecoins behave more similarly.
 
