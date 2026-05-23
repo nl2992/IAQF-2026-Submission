@@ -1,125 +1,129 @@
-# Stablecoin Market Fragmentation: USDC De-Peg Crisis Analysis
+# When "$1" Is Not One: Stablecoin Discounts and Market Fragmentation
 
-**Author:** Nigel Li  
-**Competition:** 2026 IAQF Student Competition  
-**Topic:** Stablecoin Market Fragmentation and Microstructure during the March 2023 USDC De-Peg Crisis
+**Team:** Bayes on the River, Columbia University Mathematics of Finance<br>
+**Captain:** Nigel Li<br>
+**Competition:** 2026 IAQF Academic Affiliate Membership Student Competition<br>
+**Recognition:** Selected as one of six winning teams in the Fifteenth Annual IAQF Student Competition.<br>
+**Focus:** Law-of-one-price deviations, stablecoin funding stress, liquidity fragmentation, and arbitrage limits during the March 2023 USDC de-peg.
 
----
+This repository contains the final paper, IAQF winners notice, empirical notebooks, data panels, figures, and addendum for a study of how stablecoin stress propagated through BTC spot markets during the March 2023 USDC de-peg. The analysis combines 1-minute and 1-hour price panels, stablecoin FX rates, order-book microstructure measures, cross-exchange comparisons, arbitrage simulations, and mean-reversion models.
 
-## Overview
+## Submission Documents
 
-A comprehensive empirical analysis of cryptocurrency market behavior during the March 2023 USDC de-peg event. The study addresses four research questions:
-
-1. **Cross-Currency Basis (LOP):** How does the price of BTC/USDT compare to BTC/USD over time, and what drives persistent deviations once transaction costs are considered?
-2. **Stablecoin Dynamics:** How do premium/discount patterns in stablecoin-quoted markets vary across exchanges and regimes?
-3. **Liquidity & Fragmentation:** Does liquidity differ systematically across quote currencies? How do order book depth, spread, and volatility vary?
-4. **Regulatory Overlay:** What are the implications of the GENIUS Act and stablecoin settlement adoption for market structure and efficiency?
-
----
-
-## Key Results
-
-- **LOP Deviation Peak:** The Law-of-One-Price deviation between BTC/USDC and BTC/USD peaked at over **1,200 bps** during the crisis — a 100-fold increase from the pre-crisis median of −0.17 bps.
-- **USDC Discount:** The USDC/USD rate traded at a median discount of **−325 bps** on Binance.US and **−301 bps** on Kraken during the crisis, with a minimum of ~1,400 bps on both venues.
-- **Synchronization:** Cross-venue correlation of the USDC deviation jumped from near-zero to **0.91** during the crisis — a systemic, market-wide event.
-- **Liquidity Fragmentation:** Kyle's Lambda for BTC/USDC was **64× higher** than for BTC/USDT; Amihud illiquidity was **4.4× higher**. Spreads for both BTC/USD and BTC/USDT more than **doubled**.
-- **Arbitrage Breakdown:** The OU half-life of the LOP deviation increased from **3.2 minutes** pre-crisis to **602.7 minutes (10.0 hours)** during the crisis.
-- **Contagion:** Bybit (offshore, non-USD) also experienced significant stress with spreads widening **2.5×**, highly correlated with the Binance.US de-peg event.
-
----
-
-## Figures
-
-### Main Narrative Figures
-
-| Figure | Description |
+| Document | Path |
 |---|---|
-| ![Fig. 1](figures/master/master_fig1_price_lop_overview.png) | **Fig. 1** — Price & LOP overview |
-| ![Fig. 2](figures/master/master_fig3_stablecoin_depeg.png) | **Fig. 2** — Stablecoin de-peg dynamics |
-| ![Fig. 3](figures/master/master_fig9_crisis_deep_dive.png) | **Fig. 3** — Crisis deep dive |
-| ![Fig. 4](figures/master/master_fig6_kyle_lambda.png) | **Fig. 4** — Kyle's Lambda (price impact) |
-| ![Fig. 5](figures/master/master_fig11_regression_coefs.png) | **Fig. 5** — Regression coefficients |
+| Final paper | [`docs/submission/Columbia_Bayes_on_the_River.pdf`](docs/submission/Columbia_Bayes_on_the_River.pdf) |
+| IAQF winners announcement | [`docs/submission/IAQF_2026_winners_notice.pdf`](docs/submission/IAQF_2026_winners_notice.pdf) |
+| Technical addendum | [`IAQF 2026 Paper (CIP) - Addendum.pdf`](IAQF%202026%20Paper%20%28CIP%29%20-%20Addendum.pdf) |
+| Competition prompt | [`docs/IAQFStudentCompetition2026.pdf`](docs/IAQFStudentCompetition2026.pdf) |
 
-### Liquidity & Spread Analysis
+## Research Questions
 
-![Spread, depth, and volatility](figures/lop/fig_x_spread_depth_vol.png)
+1. How large did BTC law-of-one-price deviations become across USD, USDT, and USDC quote currencies?
+2. Did stablecoin discounts transmit into spot BTC markets and liquidity conditions?
+3. How did spreads, depth, price impact, and realized volatility differ by quote currency during the crisis?
+4. When did arbitrage become economically infeasible after transaction costs, latency, and capital haircuts?
+5. What do these results imply for stablecoin settlement adoption and market-structure policy?
 
-![GENIUS Act sensitivity](figures/lop/fig_r1_genius_sensitivity.png)
+## Key Findings
 
-### Arbitrage Simulation
+- **Law-of-one-price dislocation:** BTC/USDC versus BTC/USD deviations reached more than **1,200 bps** during the crisis, compared with a pre-crisis median near zero.
+- **Stablecoin funding shock:** USDC/USD traded at a median discount of roughly **300 bps** during the crisis on Binance.US and Kraken, with intraday stress substantially larger at the trough.
+- **Venue synchronization:** Cross-venue USDC deviation correlation rose to approximately **0.91**, indicating a systemic stablecoin shock rather than an isolated exchange anomaly.
+- **Liquidity fragmentation:** BTC/USDC price impact was materially higher than BTC/USDT, and quoted spreads widened across both stablecoin- and dollar-quoted markets.
+- **Arbitrage impairment:** Estimated OU half-life increased from **3.2 minutes** before the crisis to **602.7 minutes** during the crisis, showing that deviations persisted when balance-sheet and execution constraints tightened.
+- **Cross-exchange contagion:** Bybit and Kraken evidence shows the stress was not confined to Binance.US; offshore and cross-venue markets also reflected the de-peg.
 
-![Basis vs transaction costs](figures/arb/arb_fig1_basis_vs_costs.png)
+## Main Figures
 
-![Profitability heatmap](figures/arb/arb_fig2_profitability_heatmap.png)
+The README uses full-width figures so the plots are readable in GitHub's renderer. Additional appendix figures are listed below.
 
-![Crisis window arbitrage](figures/arb/arb_fig5_crisis_window.png)
+### Figure 1: Price and LOP Overview
 
-### OU Mean-Reversion Analysis
+<img src="figures/master/master_fig1_price_lop_overview.png" alt="BTC price, stablecoin FX rates, and LOP deviations during the March 2023 USDC de-peg" width="100%">
 
-![OU residual timeseries](figures/ou/ou_fig1_residual_timeseries.png)
+### Figure 2: Stablecoin De-Peg Dynamics
 
-![Impulse response by regime](figures/ou/ou_fig2_impulse_response.png)
+<img src="figures/master/master_fig3_stablecoin_depeg.png" alt="USDC/USD and stablecoin FX deviations during the crisis window" width="100%">
 
-### Cross-Exchange Analysis
+### Figure 3: Crisis Deep Dive
 
-![Kraken wedge timeseries](figures/kraken/kraken_fig1_wedge_timeseries.png)
+<img src="figures/master/master_fig9_crisis_deep_dive.png" alt="Crisis-window BTC/USDC price, LOP deviation, implied liquidity, and order-flow imbalance" width="100%">
 
-![Kraken stablecoin FX](figures/kraken/kraken_fig2_stablecoin_fx.png)
+### Figure 4: Quote-Currency Price Impact
 
-![Bybit crisis window](figures/bybit/bybit_fig1_crisis_window.png)
+<img src="figures/master/master_fig6_kyle_lambda.png" alt="Kyle lambda estimates by quote currency and regime" width="100%">
 
-### Advanced Models
+### Figure 5: Regression Evidence
 
-![HMM regime detection](figures/advanced/adv_fig1_hmm.png)
+<img src="figures/master/master_fig11_regression_coefs.png" alt="Regression coefficient estimates for LOP drivers" width="100%">
 
-![GARCH volatility](figures/advanced/adv_fig2_garch.png)
+### Figure 6: Spread, Depth, and Volatility
 
-![Hawkes process](figures/advanced/adv_fig7_hawkes.png)
+<img src="figures/lop/fig_x_spread_depth_vol.png" alt="Spread, depth, and realized volatility across BTC quote currencies" width="100%">
 
----
+### Figure 7: GENIUS Act Sensitivity
 
-## Paper Artifact Map
+<img src="figures/lop/fig_r1_genius_sensitivity.png" alt="Sensitivity table and expected holding-time comparisons under stablecoin adoption assumptions" width="100%">
 
-### Main Figures (Fig. 1–7)
+## Appendix Figure Index
 
-| Paper Label | Repo Path | Producer | Data Source |
-|:---|:---|:---|:---|
-| **Fig. 1** | `figures/master/master_fig1_price_lop_overview.png` | `IAQF_Master_Analysis.ipynb` | `panel_1hour.parquet` |
-| **Fig. 2** | `figures/master/master_fig3_stablecoin_depeg.png` | `IAQF_Master_Analysis.ipynb` | `panel_1min.parquet` |
-| **Fig. 3** | `figures/master/master_fig9_crisis_deep_dive.png` | `IAQF_Master_Analysis.ipynb` | `panel_1min.parquet` |
-| **Fig. 4** | `figures/master/master_fig6_kyle_lambda.png` | `IAQF_Master_Analysis.ipynb` | `l2_all_pairs_1min.parquet` |
-| **Fig. 5** | `figures/master/master_fig11_regression_coefs.png` | `IAQF_Master_Analysis.ipynb` | `panel_1min.parquet` |
-| **Fig. 6** | `figures/lop/fig_x_spread_depth_vol.png` | `compute_table_x.py` | `panel_1min.parquet` |
-| **Fig. 7** | `figures/lop/fig_r1_genius_sensitivity.png` | `compute_sensitivity_table.py` | `table_sensitivity_genius.csv` |
+| Area | Figure | Path |
+|---|---|---|
+| Arbitrage simulation | Basis versus transaction costs | `figures/arb/arb_fig1_basis_vs_costs.png` |
+| Arbitrage simulation | Profitability heatmap | `figures/arb/arb_fig2_profitability_heatmap.png` |
+| Arbitrage simulation | Crisis-window deep dive | `figures/arb/arb_fig5_crisis_window.png` |
+| OU mean reversion | Residual basis by regime | `figures/ou/ou_fig1_residual_timeseries.png` |
+| OU mean reversion | Impulse response by regime | `figures/ou/ou_fig2_impulse_response.png` |
+| Kraken cross-exchange | BTC/USD venue wedge | `figures/kraken/kraken_fig1_wedge_timeseries.png` |
+| Kraken cross-exchange | Stablecoin FX deviations | `figures/kraken/kraken_fig2_stablecoin_fx.png` |
+| Bybit cross-exchange | Crisis-window microstructure | `figures/bybit/bybit_fig1_crisis_window.png` |
+| Advanced models | HMM regime detection | `figures/advanced/adv_fig1_hmm.png` |
+| Advanced models | GARCH volatility | `figures/advanced/adv_fig2_garch.png` |
+| Advanced models | Hawkes process stress clustering | `figures/advanced/adv_fig7_hawkes.png` |
 
-### Appendix Figures
+## Repository Layout
 
-| Paper Label | Repo Path | Producer |
-|:---|:---|:---|
-| **Fig. K-1** | `figures/kraken/kraken_fig1_wedge_timeseries.png` | `IAQF_CrossExchange_Kraken.ipynb` |
-| **Fig. K-2** | `figures/kraken/kraken_fig2_stablecoin_fx.png` | `IAQF_CrossExchange_Kraken.ipynb` |
-| **Fig. K-3** | `figures/kraken/kraken_fig3_regime_bars.png` | `IAQF_CrossExchange_Kraken.ipynb` |
-| **Fig. B-1** | `figures/bybit/bybit_fig1_crisis_window.png` | `IAQF_CrossExchange_Bybit_executed.ipynb` |
-| **Fig. OU-1** | `figures/ou/ou_fig1_residual_timeseries.png` | `IAQF_OU_Analysis_executed.ipynb` |
-| **Fig. OU-2** | `figures/ou/ou_fig2_impulse_response.png` | `IAQF_OU_Analysis_executed.ipynb` |
+```text
+IAQF-2026-Submission/
+├── README.md
+├── IAQF 2026 Paper (CIP) - Addendum.pdf
+├── docs/
+│   ├── IAQFStudentCompetition2026.pdf
+│   └── submission/
+│       ├── Columbia_Bayes_on_the_River.pdf
+│       └── IAQF_2026_winners_notice.pdf
+├── data/
+│   ├── parquet/                  # Main Binance.US/Coinbase price and feature panels
+│   └── cross_exchange/           # Kraken and Bybit cross-exchange panels
+├── figures/
+│   ├── master/                   # Main paper figures
+│   ├── lop/                      # Spread/depth/volatility and policy-sensitivity figures
+│   ├── arb/                      # Arbitrage simulation figures
+│   ├── br/                       # Basis-risk figures
+│   ├── ou/                       # OU mean-reversion figures
+│   ├── bybit/                    # Bybit cross-exchange figures
+│   ├── kraken/                   # Kraken cross-exchange figures
+│   └── advanced/                 # HMM, GARCH, random forest, Markov, Hawkes, PCA figures
+├── notebooks/
+│   ├── IAQF_Master_Analysis.ipynb
+│   ├── IAQF_Advanced_Models.ipynb
+│   ├── IAQF_Arbitrage_Simulation_executed.ipynb
+│   ├── IAQF_BasisRisk_Analysis_executed.ipynb
+│   ├── IAQF_OU_Analysis_executed.ipynb
+│   ├── IAQF_CrossExchange_Bybit_executed.ipynb
+│   └── IAQF_CrossExchange_Kraken.ipynb
+├── scripts/                      # Data-fetching and feature-construction helpers
+├── generate_data.py              # Builds the main data panels
+├── fetch_cross_exchange.py       # Fetches Kraken and Bybit cross-exchange data
+├── compute_table_vii.py
+├── compute_table_x.py
+└── compute_sensitivity_table.py
+```
 
-### Tables
+## Reproducibility
 
-| Paper Label | Description | Producer |
-|:---|:---|:---|
-| **Table VII** | Stablecoin Premia/Discounts | `compute_table_vii.py` |
-| **Table VIII** | Cross-Venue Correlation | `compute_table_vii.py` |
-| **Table IX** | USDC vs USDT Confidence | `compute_table_vii.py` |
-| **Table X** | Spread, Depth, Volatility | `compute_table_x.py` |
-| **Table XI** | Stress Ratios | `compute_table_x.py` |
-| **Table B-1** | Bybit Microstructure | `IAQF_CrossExchange_Bybit_executed.ipynb` |
-| **Table OU-1** | OU Parameters & Half-Life | `IAQF_OU_Analysis_executed.ipynb` |
-
----
-
-## How to Run
-
-### Prerequisites
+Install the Python dependencies:
 
 ```bash
 pip install pandas numpy matplotlib seaborn statsmodels scipy \
@@ -127,90 +131,49 @@ pip install pandas numpy matplotlib seaborn statsmodels scipy \
             requests jupyter nbformat nbconvert
 ```
 
-### Step 1 — Generate LOP panel data (~5 min)
+Generate the main LOP panel without the large tick-data download:
 
 ```bash
 python generate_data.py --skip-l2
 ```
 
-Fetches 1-minute OHLCV data from Binance.US and Coinbase, builds the harmonized panel, saves `panel_1min.parquet`, `panel_1hour.parquet`, and `panel_daily.parquet` to `data/parquet/`. `--skip-l2` skips the ~20 GB tick data download.
-
-### Step 2 — L2 microstructure data (~60–90 min, optional)
+Generate the full L2 microstructure dataset:
 
 ```bash
 python generate_data.py
 ```
 
-Downloads ~20 GB of `aggTrades` tick data from the Binance public archive and processes ~150 million trades into 1-minute L2 metrics.
+This downloads and processes large Binance public-archive tick files. Expect roughly 20 GB of raw tick data and a longer runtime.
 
-### Step 3 — Cross-exchange data (~2 hours, optional)
+Fetch cross-exchange Kraken and Bybit panels:
 
 ```bash
 python fetch_cross_exchange.py
 ```
 
-Fetches Kraken tick trades (BTC/USD, USDC/USD, USDT/USD, USDC/USDT) and Bybit BTC/USDT tick data via public REST APIs.
+Run the notebooks from the `notebooks/` directory after the corresponding data panels are present.
 
-### Step 4 — Run notebooks
+## Notebook Map
 
-```bash
-cd notebooks/
-jupyter notebook IAQF_Master_Analysis.ipynb
-```
-
-**Notebook dependency summary:**
-
-| Notebook | Data Required | Self-Fetches? |
+| Notebook | Purpose | Data dependency |
 |---|---|---|
-| `IAQF_Master_Analysis.ipynb` | `panel_1min.parquet` + L2 files | No — run `generate_data.py` first |
-| `IAQF_Advanced_Models.ipynb` | `panel_1min.parquet` | No — run `generate_data.py --skip-l2` first |
-| `IAQF_Arbitrage_Simulation_executed.ipynb` | `panel_1min.parquet` | No |
-| `IAQF_BasisRisk_Analysis_executed.ipynb` | `panel_1min.parquet` | No |
-| `IAQF_OU_Analysis_executed.ipynb` | None | **Yes** — fetches from Binance.US API |
-| `IAQF_CrossExchange_Bybit_executed.ipynb` | `data/cross_exchange/bybit_btcusdt_1min.parquet` | Partially |
-| `IAQF_CrossExchange_Kraken.ipynb` | `data/cross_exchange/kraken_*.parquet` | Partially |
+| `IAQF_Master_Analysis.ipynb` | Main LOP, stablecoin, and microstructure analysis | `data/parquet/panel_1min.parquet`, `panel_1hour.parquet`, L2 files |
+| `IAQF_Advanced_Models.ipynb` | HMM, GARCH, random forest, Markov switching, Hawkes, PCA | `data/parquet/panel_1min.parquet` |
+| `IAQF_Arbitrage_Simulation_executed.ipynb` | Transaction-cost and arbitrage profitability simulation | `data/parquet/panel_1min.parquet` |
+| `IAQF_BasisRisk_Analysis_executed.ipynb` | Basis decomposition, moments, and tail-risk analysis | `data/parquet/panel_1min.parquet` |
+| `IAQF_OU_Analysis_executed.ipynb` | OU mean-reversion and half-life estimates | Self-fetches required Binance.US data |
+| `IAQF_CrossExchange_Bybit_executed.ipynb` | Bybit offshore cross-exchange analysis | `data/cross_exchange/bybit_*.parquet` |
+| `IAQF_CrossExchange_Kraken.ipynb` | Kraken venue wedge and stablecoin FX analysis | `data/cross_exchange/kraken_*.parquet` |
 
----
+## Paper Artifact Map
 
-## Directory Structure
-
-```
-IAQF_2026/
-├── notebooks/
-│   ├── IAQF_Master_Analysis.ipynb                ← Phase 1 (LOP) + Phase 2 (L2)
-│   ├── IAQF_Advanced_Models.ipynb                ← HMM, GARCH, VAR, RF, DTW, MS, Hawkes, PCA
-│   ├── IAQF_Arbitrage_Simulation_executed.ipynb  ← Triangular arbitrage simulation
-│   ├── IAQF_BasisRisk_Analysis_executed.ipynb    ← Basis decomposition, stress, tails
-│   ├── IAQF_OU_Analysis_executed.ipynb           ← OU mean-reversion by regime
-│   ├── IAQF_CrossExchange_Bybit_executed.ipynb   ← Bybit L2 order book analysis
-│   └── IAQF_CrossExchange_Kraken.ipynb           ← Kraken 3-way BTC/USD venue wedge
-├── data/
-│   ├── parquet/                                  ← Generated by generate_data.py
-│   │   ├── panel_1min.parquet                    ← 30,240 rows × 74 cols — main LOP panel
-│   │   ├── panel_1hour.parquet
-│   │   ├── panel_daily.parquet
-│   │   ├── l2_BTCUSDT_1min.parquet
-│   │   ├── l2_BTCUSDC_1min.parquet
-│   │   └── l2_all_pairs_1min.parquet
-│   └── cross_exchange/                           ← Generated by fetch_cross_exchange.py
-│       ├── kraken_btcusd_1min.parquet
-│       ├── kraken_usdcusd_1min.parquet
-│       ├── bybit_btcusdt_1min.parquet
-│       └── ...
-├── generate_data.py                              ← Generates data/parquet/ files
-├── fetch_cross_exchange.py                       ← Generates data/cross_exchange/ files
-├── compute_table_vii.py
-├── compute_table_x.py
-├── compute_sensitivity_table.py
-├── figures/                                      ← 30+ output figures
-│   ├── master/
-│   ├── advanced/
-│   ├── arb/
-│   ├── br/
-│   ├── ou/
-│   ├── bybit/
-│   ├── kraken/
-│   └── lop/
-└── docs/
-    └── IAQFStudentCompetition2026.pdf            ← Competition problem statement
-```
+| Paper item | Repository artifact |
+|---|---|
+| Final paper | `docs/submission/Columbia_Bayes_on_the_River.pdf` |
+| IAQF winners notice | `docs/submission/IAQF_2026_winners_notice.pdf` |
+| Submitted paper addendum | `IAQF 2026 Paper (CIP) - Addendum.pdf` |
+| Main figures | `figures/master/` and `figures/lop/` |
+| Appendix figures | `figures/arb/`, `figures/br/`, `figures/ou/`, `figures/bybit/`, `figures/kraken/`, `figures/advanced/` |
+| Main data panels | `data/parquet/` |
+| Cross-exchange panels | `data/cross_exchange/` |
+| Competition prompt | `docs/IAQFStudentCompetition2026.pdf` |
