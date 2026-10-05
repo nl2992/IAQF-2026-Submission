@@ -2,6 +2,7 @@
 
 **Team:** Bayes on the River, Columbia University Mathematics of Finance<br>
 **Captain:** Nigel Li<br>
+**Contributor:** William Yizhen Qiu<br>
 **Competition:** 2026 IAQF Academic Affiliate Membership Student Competition<br>
 **Recognition:** Selected as one of six winning teams in the Fifteenth Annual IAQF Student Competition.<br>
 **Focus:** Law-of-one-price deviations, stablecoin funding stress, liquidity fragmentation, and arbitrage limits during the March 2023 USDC de-peg.
